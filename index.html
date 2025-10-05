@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Theme Selector - DevSsemgong</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .theme-preview {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .theme-preview.dark-yellow {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .theme-preview.white-blue {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+        }
+
+        .theme-preview.other {
+            background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 50%, #bdbdbd 100%);
+        }
+
+        .theme-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .theme-info {
+            padding: 25px;
+        }
+
+        .theme-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .theme-info p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .theme-btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            transition: opacity 0.3s ease;
+        }
+
+        .theme-btn:hover {
+            opacity: 0.9;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .themes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎨 Design Theme Selector</h1>
+            <p>원하시는 테마를 선택해주세요</p>
+        </div>
+
+        <div class="themes-grid">
+            <!-- Dark Yellow Theme -->
+            <div class="theme-card" onclick="window.location.href='./DarkYellow/index.html'">
+                <div class="theme-preview dark-yellow">
+                    <div class="theme-badge">Premium</div>
+                </div>
+                <div class="theme-info">
+                    <h2>Dark Yellow</h2>
+                    <p>세련되고 모던한 다크 테마로 전문적인 느낌을 강조합니다. 강렬한 색상 조합으로 시선을 사로잡습니다.</p>
+                    <a href="./DarkYellow/index.html" class="theme-btn">테마 보기 →</a>
+                </div>
+            </div>
+
+            <!-- White Blue Theme -->
+            <div class="theme-card" onclick="window.location.href='./whiteblue/index.html'">
+                <div class="theme-preview white-blue">
+                    <div class="theme-badge">Premium</div>
+                </div>
+                <div class="theme-info">
+                    <h2>White Blue</h2>
+                    <p>깔끔하고 신뢰감 있는 화이트 블루 테마입니다. 전문성과 편안함을 동시에 제공합니다.</p>
+                    <a href="./whiteblue/index.html" class="theme-btn">테마 보기 →</a>
+                </div>
+            </div>
+
+            <!-- Other Themes -->
+            <div class="theme-card" onclick="window.location.href='./other/index.html'">
+                <div class="theme-preview other">
+                    <div class="theme-badge">Experimental</div>
+                </div>
+                <div class="theme-info">
+                    <h2>Other Designs</h2>
+                    <p>다양한 실험적 디자인과 추가 버전들을 만나보세요. 새로운 아이디어가 담긴 레이아웃입니다.</p>
+                    <a href="./other/index.html" class="theme-btn">테마 보기 →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2025 DevSsemgong Design Project. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // 카드 클릭 애니메이션
+        document.querySelectorAll('.theme-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.classList.contains('theme-btn')) {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
