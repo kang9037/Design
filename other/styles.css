@@ -464,38 +464,38 @@ body {
 }
 
 .btn-primary {
-    background: var(--gradient-gold);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
     color: white;
-    box-shadow: var(--shadow-gold);
+    box-shadow: 0 10px 30px -5px rgba(30, 58, 138, 0.25), 0 0 0 1px rgba(30, 58, 138, 0.10);
 }
 
 .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px -5px rgba(202, 138, 4, 0.4),
-                0 10px 20px -6px rgba(202, 138, 4, 0.3);
+    box-shadow: 0 15px 40px -5px rgba(30, 58, 138, 0.4),
+                0 10px 20px -6px rgba(30, 58, 138, 0.3);
 }
 
 /* Premium Section-Specific Buttons */
 .contact .btn-primary,
 .footer .btn-primary {
-    background: var(--gradient-gold);
-    box-shadow: var(--shadow-gold);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    box-shadow: 0 10px 30px -5px rgba(30, 58, 138, 0.25), 0 0 0 1px rgba(30, 58, 138, 0.10);
 }
 
 .contact .btn-primary:hover,
 .footer .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px -5px rgba(202, 138, 4, 0.4);
+    box-shadow: 0 15px 40px -5px rgba(30, 58, 138, 0.4);
 }
 
 .pricing .btn-primary {
-    background: var(--gradient-gold);
-    box-shadow: var(--shadow-gold);
+    background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+    box-shadow: 0 10px 30px -5px rgba(30, 58, 138, 0.25), 0 0 0 1px rgba(30, 58, 138, 0.10);
 }
 
 .pricing .btn-primary:hover {
     transform: translateY(-3px);
-    box-shadow: 0 15px 40px -5px rgba(202, 138, 4, 0.4);
+    box-shadow: 0 15px 40px -5px rgba(30, 58, 138, 0.4);
 }
 
 .btn-icon {
