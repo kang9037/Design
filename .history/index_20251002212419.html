@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학원 관리 시스템 - 스마트한 학습 관리 솔루션</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect width="32" height="32" rx="8" fill="url(#gradient)"/>
+                    <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" stroke="white" stroke-width="2" fill="none"/>
+                    <defs>
+                        <linearGradient id="gradient" x1="0" y1="0" x2="32" y2="32">
+                            <stop offset="0%" stop-color="#2563eb"/>
+                            <stop offset="100%" stop-color="#1e40af"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>입시 네비게이션</span>
+            </div>
+            <nav class="nav">
+                <a href="#features">기능</a>
+                <a href="#gallery">갤러리</a>
+                <a href="#reviews">후기</a>
+                <a href="#pricing">가격</a>
+                <a href="#contact" class="nav-cta">무료 상담</a>
+            </nav>
+            <button class="mobile-menu-btn" aria-label="메뉴">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">학원 운영의 새로운 기준</div>
+                <h1 class="hero-title">
+                    학원 운영을<br>
+                    <span class="gradient-text">한 단계 더 스마트하게</span>
+                </h1>
+                <p class="hero-description">
+                    15가지 핵심 기능으로 자습관 관리부터 성적 분석까지<br>
+                    학생과 학부모가 만족하는 올인원 솔루션을 경험하세요
+                </p>
+                <div class="hero-actions">
+                    <a href="#contact" class="btn btn-primary">
+                        <span>무료 상담 신청</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+                    <a href="#gallery" class="btn btn-secondary">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 10L10 12L13 9" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <span>시스템 둘러보기</span>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">도입 학원</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">핵심 기능</div>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item">
+                        <div class="stat-number">99.9%</div>
+                        <div class="stat-label">만족도</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 주요 기능 섹션 -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">FEATURES</span>
+                <h2 class="section-title">학원 운영에 필요한<br>모든 기능을 하나로</h2>
+                <p class="section-description">
+                    출결 관리부터 성적 분석까지, 학원 관리의 모든 과정을<br>
+                    효율적으로 관리할 수 있는 통합 솔루션입니다
+                </p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card" data-color="blue">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 12H24M8 16H24M8 20H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>자습관 신청</h3>
+                    <p>주차별 자습실 예약 및 좌석 배정을 효율적으로 관리하세요</p>
+                </div>
+
+                <div class="feature-card" data-color="purple">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M12 8L20 16L12 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>학습현황</h3>
+                    <p>학생들의 실시간 학습 기록과 진도를 한눈에 파악합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="green">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="8" y="8" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 14H24M14 8V24" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>학습닷컴</h3>
+                    <p>일정 관리와 출결 체크를 자동화하여 시간을 절약하세요</p>
+                </div>
+
+                <div class="feature-card" data-color="orange">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2"/>
+                            <path d="M16 10V16L20 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>출결 캘린더</h3>
+                    <p>학생별 출결 현황을 달력으로 직관적으로 확인 가능합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="pink">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 6L18 12H24L19 16L21 22L16 18L11 22L13 16L8 12H14L16 6Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>일정 알림</h3>
+                    <p>수업, 시험, 상담 일정을 자동으로 학생과 학부모에게 알립니다</p>
+                </div>
+
+                <div class="feature-card" data-color="indigo">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M10 12L16 6L22 12M10 20L16 14L22 20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>생기부 활동</h3>
+                    <p>생활기록부에 기재할 활동을 체계적으로 관리합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="cyan">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 20L12 14L16 18L20 12L24 16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>내신 추이</h3>
+                    <p>교과별 성적 변화를 그래프로 시각화하여 분석합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="teal">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M8 24V8L24 8V24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>모의고사 추이</h3>
+                    <p>국어/수학/영어 모의고사 성적을 과목별로 추적합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="red">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <circle cx="16" cy="16" r="10" stroke="currentColor" stroke-width="2"/>
+                            <circle cx="16" cy="16" r="4" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <h3>OMR 추이</h3>
+                    <p>OMR 분석을 통해 오답률과 취약점을 파악합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="violet">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <path d="M16 6V26M6 16H26" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <h3>수시/정시 검색</h3>
+                    <p>지역별, 학과별로 대학 정보를 손쉽게 검색합니다</p>
+                </div>
+
+                <div class="feature-card" data-color="amber">
+                    <div class="feature-icon">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect x="8" y="10" width="16" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                            <path d="M8 16H24" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                    <h3>성적 분석표</h3>
+                    <p>다양한 조건으로 학생별 맞춤 성적 분석을 제공합니다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 시스템 갤러리 -->
+    <section id="gallery" class="gallery">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">GALLERY</span>
+                <h2 class="section-title">직관적이고 세련된<br>사용자 인터페이스</h2>
+            </div>
+
+            <div class="gallery-tabs">
+                <button class="tab-btn active" data-category="all">전체</button>
+                <button class="tab-btn" data-category="management">관리</button>
+                <button class="tab-btn" data-category="analysis">분석</button>
+                <button class="tab-btn" data-category="search">검색</button>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-1.png" alt="메인 대시보드" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>메인 대시보드</h4>
+                        <span>15가지 기능 한눈에</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-2.png" alt="자습관 신청" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>자습관 신청</h4>
+                        <span>주차별 예약 관리</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-3.png" alt="학습현황" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>학습현황</h4>
+                        <span>학습 기록 조회</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-4.png" alt="학습닷컴" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>학습닷컴</h4>
+                        <span>월별 일정 캘린더</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-5.png" alt="출결 캘린더" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>출결 캘린더</h4>
+                        <span>출석 현황 시각화</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-6.png" alt="일정 알림" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>일정 알림</h4>
+                        <span>수업 일정 관리</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="management">
+                    <img src="assets/screenshot-7.png" alt="생기부 활동" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>생기부 활동</h4>
+                        <span>활동 관리 시스템</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="analysis">
+                    <img src="assets/screenshot-8.png" alt="내신 추이" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>내신 추이</h4>
+                        <span>과목별 성적 그래프</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="analysis">
+                    <img src="assets/screenshot-9.png" alt="모의고사 추이" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>모의고사 추이</h4>
+                        <span>국수영 성적 분석</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="analysis">
+                    <img src="assets/screenshot-10.png" alt="OMR 추이" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>OMR 추이</h4>
+                        <span>학력평가 통계</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="search">
+                    <img src="assets/screenshot-11.png" alt="수시 대학검색" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>수시 대학검색</h4>
+                        <span>지역/학과별 검색</span>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="search">
+                    <img src="assets/screenshot-12.png" alt="정시 대학검색" loading="lazy">
+                    <div class="gallery-info">
+                        <h4>정시 대학검색</h4>
+                        <span>다양한 지역 선택</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 후기 섹션 -->
+    <section id="reviews" class="reviews">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">REVIEWS</span>
+                <h2 class="section-title">실제 사용 후기</h2>
+            </div>
+
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">5.0</span>
+                    </div>
+                    <p class="review-content">
+                        "자습실 관리부터 성적 분석까지 모든 기능이 한 곳에 있어서 정말 편리합니다.
+                        학부모님들도 실시간으로 자녀의 학습 현황을 확인하실 수 있어서 만족도가 매우 높습니다."
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar">김</div>
+                        <div class="author-info">
+                            <strong>김○○ 원장</strong>
+                            <span>서울 강남구 ○○학원</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">5.0</span>
+                    </div>
+                    <p class="review-content">
+                        "출결 관리와 일정 알림 기능 덕분에 행정 업무 시간이 절반으로 줄었습니다.
+                        그만큼 학생 상담과 수업 준비에 더 많은 시간을 쓸 수 있게 되었어요."
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar">이</div>
+                        <div class="author-info">
+                            <strong>이○○ 부원장</strong>
+                            <span>부산 해운대구 △△학원</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-rating">
+                        <span>⭐⭐⭐⭐⭐</span>
+                        <span class="rating-text">5.0</span>
+                    </div>
+                    <p class="review-content">
+                        "내신과 모의고사 추이를 그래프로 한눈에 볼 수 있어서 학생 상담할 때 정말 유용합니다.
+                        데이터 기반으로 정확한 학습 방향을 제시할 수 있게 되었습니다."
+                    </p>
+                    <div class="review-author">
+                        <div class="author-avatar">박</div>
+                        <div class="author-info">
+                            <strong>박○○ 실장</strong>
+                            <span>대전 서구 □□학원</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 가격 섹션 -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">PRICING</span>
+                <h2 class="section-title">합리적인 가격 정책</h2>
+                <p class="section-description">학원 규모에 맞는 플랜을 선택하세요</p>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>스타터</h3>
+                        <p>소규모 학원에 최적화</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">50만원</span>
+                        <span class="price-period">최초 구축</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>핵심 기능 10가지</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>학생 100명까지</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>기본 교육 제공</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>이메일 지원</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline-primary">문의하기</a>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-badge">인기</div>
+                    <div class="pricing-header">
+                        <h3>프로페셔널</h3>
+                        <p>중대형 학원 추천</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">80만원</span>
+                        <span class="price-period">최초 구축</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>전체 기능 15가지</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>학생 300명까지</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>맞춤형 교육 및 설치</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>우선 기술 지원</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>데이터 백업</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">문의하기</a>
+                </div>
+
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>엔터프라이즈</h3>
+                        <p>대형 학원 및 프랜차이즈</p>
+                    </div>
+                    <div class="pricing-price">
+                        <span class="price-amount">맞춤 견적</span>
+                        <span class="price-period">규모별 협의</span>
+                    </div>
+                    <ul class="pricing-features">
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>모든 기능 무제한</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>학생 수 무제한</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>전담 매니저 배정</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>24/7 기술 지원</span>
+                        </li>
+                        <li>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M5 10L8 13L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>커스터마이징</span>
+                        </li>
+                    </ul>
+                    <a href="#contact" class="btn btn-outline-primary">문의하기</a>
+                </div>
+            </div>
+
+            <div class="pricing-note">
+                <p>💡 모든 플랜은 1개월 무료 체험 기간을 제공합니다</p>
+                <p>💡 월 유지보수 비용은 별도 협의 (서버 관리, 기술지원 포함)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <span class="section-badge">CONTACT</span>
+                    <h2>무료 상담을<br>신청하세요</h2>
+                    <p>학원에 맞는 최적의 솔루션을 제안해 드립니다</p>
+
+                    <div class="contact-items">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M5 4H9L11 9L8.5 10.5C9.5 12.5 11.5 14.5 13.5 15.5L15 13L20 15V19C20 19.5 19.5 20 19 20C10.5 20 4 13.5 4 5C4 4.5 4.5 4 5 4Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>전화 문의</h4>
+                                <p>010-XXXX-XXXX</p>
+                                <span>평일 09:00 - 18:00</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="4" y="6" width="16" height="12" rx="2" stroke="currentColor" stroke-width="2"/>
+                                    <path d="M4 8L12 13L20 8" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>이메일</h4>
+                                <p>contact@example.com</p>
+                                <span>24시간 접수 가능</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path d="M21 15C21 15.5 20.5 16 20 16H7L4 19V5C4 4.5 4.5 4 5 4H20C20.5 4 21 4.5 21 5V15Z" stroke="currentColor" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4>카카오톡</h4>
+                                <p>@학원관리시스템</p>
+                                <span>실시간 상담 가능</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>학원명</label>
+                            <input type="text" placeholder="학원명을 입력하세요" required>
+                        </div>
+                        <div class="form-group">
+                            <label>담당자명</label>
+                            <input type="text" placeholder="담당자명을 입력하세요" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>연락처</label>
+                            <input type="tel" placeholder="010-0000-0000" required>
+                        </div>
+                        <div class="form-group">
+                            <label>이메일</label>
+                            <input type="email" placeholder="example@email.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>학생 수</label>
+                        <select required>
+                            <option value="">학생 수를 선택하세요</option>
+                            <option value="50">50명 이하</option>
+                            <option value="100">50-100명</option>
+                            <option value="200">100-200명</option>
+                            <option value="300">200-300명</option>
+                            <option value="more">300명 이상</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>문의 내용</label>
+                        <textarea placeholder="문의하실 내용을 입력해주세요" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span>상담 신청하기</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">
+                        <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                            <rect width="32" height="32" rx="8" fill="url(#gradient2)"/>
+                            <path d="M16 8L22 12V20L16 24L10 20V12L16 8Z" stroke="white" stroke-width="2" fill="none"/>
+                            <defs>
+                                <linearGradient id="gradient2" x1="0" y1="0" x2="32" y2="32">
+                                    <stop offset="0%" stop-color="#2563eb"/>
+                                    <stop offset="100%" stop-color="#1e40af"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>학원 관리 시스템</span>
+                    </div>
+                    <p>스마트한 학습 관리 솔루션</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>제품</h4>
+                        <ul>
+                            <li><a href="#features">기능</a></li>
+                            <li><a href="#gallery">갤러리</a></li>
+                            <li><a href="#pricing">가격</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>지원</h4>
+                        <ul>
+                            <li><a href="#contact">문의하기</a></li>
+                            <li><a href="#">가이드</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>회사</h4>
+                        <ul>
+                            <li><a href="#">소개</a></li>
+                            <li><a href="#">이용약관</a></li>
+                            <li><a href="#">개인정보처리방침</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 학원 관리 시스템. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
