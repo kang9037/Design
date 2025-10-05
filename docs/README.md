@@ -5,8 +5,10 @@
 ## 📦 배포 정보
 
 - **GitHub Repository**: https://github.com/kang9037/Design
-- **배포 브랜치**: `design`
+- **배포 브랜치**: `design` (프로덕션 브랜치)
 - **웹사이트**: https://www.devssemgong.store/
+- **Vercel 프로젝트 ID**: `prj_rGqPtahzKpqDdDJ50UFzc9DcE4X4`
+- **프로덕션 URL**: https://design-4aj9hxijg-kangdongwons-projects.vercel.app
 
 ## 🎨 포함된 테마
 
@@ -52,7 +54,8 @@ design/
 
 ## 🚀 배포 방법
 
-모든 변경사항은 `design` 브랜치에 커밋 및 푸시됩니다.
+### 자동 배포 (GitHub Push)
+모든 변경사항은 `design` 브랜치에 커밋 및 푸시하면 자동으로 배포됩니다.
 
 ```bash
 git add .
@@ -60,10 +63,28 @@ git commit -m "커밋 메시지"
 git push origin design
 ```
 
+### 수동 배포 (Vercel CLI)
+Vercel CLI를 사용한 직접 배포:
+
+```bash
+# design 브랜치로 이동
+git checkout design
+
+# 프로덕션 배포
+vercel --prod
+```
+
+**참고**: `design` 브랜치가 프로덕션 브랜치로 설정되어 있습니다. `main` 브랜치는 사용하지 않습니다.
+
 ## 🔧 로컬 개발
 
 각 테마 폴더의 `index.html` 파일을 브라우저에서 직접 열어 확인할 수 있습니다.
 
 ## 📝 업데이트 로그
 
-- **2025-10-05**: 초기 배포 - 3가지 테마 포함
+- **2025-10-05**:
+  - 초기 배포 - 3가지 테마 포함 (DarkYellow, WhiteBlue, Other)
+  - 루트 index.html에 테마 선택 랜딩 페이지 추가
+  - Vercel 배포 설정 완료 (vercel.json)
+  - design 브랜치를 프로덕션 브랜치로 설정
+  - Vercel CLI를 통한 직접 배포 설정
