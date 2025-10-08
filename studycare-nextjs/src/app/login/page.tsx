@@ -280,7 +280,10 @@ export default function LoginPage() {
       <style jsx>{`
         .login-section {
           min-height: 100vh;
-          padding: 10rem 0 5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 8rem 2rem 4rem;
           background: linear-gradient(165deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
           position: relative;
           overflow: hidden;
@@ -301,8 +304,9 @@ export default function LoginPage() {
         .login-wrapper {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 4rem;
-          max-width: 1200px;
+          gap: 3rem;
+          max-width: 1100px;
+          width: 100%;
           margin: 0 auto;
           position: relative;
           z-index: 1;
@@ -599,9 +603,14 @@ export default function LoginPage() {
         }
 
         @media (max-width: 768px) {
+          .login-section {
+            padding: 6rem 1.5rem 3rem;
+          }
+
           .login-wrapper {
             grid-template-columns: 1fr;
             gap: 2rem;
+            max-width: 500px;
           }
 
           .login-info {
