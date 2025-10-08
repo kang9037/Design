@@ -31,9 +31,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const id = document.getElementById('student-id').value;
             const password = document.getElementById('student-password').value;
 
-            // 여기에 실제 로그인 로직을 구현하세요
-            console.log('학생/학부모 로그인:', { id, password });
-            alert('학생/학부모 로그인 기능은 서버 연동 후 사용 가능합니다.');
+            // 테스트 계정 확인
+            if (id === 'test' && password === '1111') {
+                // 로그인 성공 - 로드맵 페이지로 이동
+                window.location.href = 'roadmap.html';
+            } else {
+                // 로그인 실패
+                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+            }
         });
     }
 

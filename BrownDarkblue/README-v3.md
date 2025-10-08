@@ -1,6 +1,6 @@
-# 입시 네비게이션 V3 - Sophisticated Serenity 🎨
+# 스터디케어 V3 - Sophisticated Serenity 🎨
 
-**고급스럽고 차분한 프리미엄 학원 관리 시스템 랜딩페이지**
+**고급스럽고 차분한 프리미엄 스터디케어 관리 시스템 랜딩페이지**
 
 ---
 
@@ -336,7 +336,7 @@ section {
 ### 3. SEO
 ```html
 <meta name="description" content="...">
-<title>입시 네비게이션 - 프리미엄 학원 관리 시스템</title>
+<title>스터디케어 - 프리미엄 스터디케어 관리 시스템</title>
 ```
 
 ### 4. 접근성
@@ -414,7 +414,7 @@ section {
 
 ## 📄 라이선스
 
-© 2025 입시 네비게이션. All rights reserved.
+© 2025 스터디케어. All rights reserved.
 
 ---
 
