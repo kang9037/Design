@@ -1,6 +1,9 @@
 /* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap');
 
+/* Import BrownDarkblue Theme Styles */
+@import './browntheme.css';
+
 /* 리셋 */
 * {
     margin: 0;
@@ -290,4 +293,19 @@ body.loaded {
     background: linear-gradient(90deg, var(--accent-600), var(--accent-800));
     z-index: 10001;
     transition: width 0.2s ease;
+}
+
+/* Feature Card 스타일 */
+.feature-card {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-lg);
+    transition: all var(--transition-base);
+    cursor: pointer;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
 }
