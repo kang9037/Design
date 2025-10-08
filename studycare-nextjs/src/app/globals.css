@@ -134,6 +134,10 @@ body {
     overflow-x: hidden;
 }
 
+body.menu-open {
+    overflow: hidden;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Noto Serif KR', serif;
     font-weight: 700;
