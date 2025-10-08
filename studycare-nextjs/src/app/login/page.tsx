@@ -140,12 +140,17 @@ export default function LoginPage() {
                     </label>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">
-                    <span>로그인</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  </button>
+                  <div className="form-actions">
+                    <Link href="/signup" className="btn btn-secondary">
+                      <span>회원가입</span>
+                    </Link>
+                    <button type="submit" className="btn btn-primary">
+                      <span>로그인</span>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
 
                   <div className="form-links">
                     <a href="#" className="link" onClick={(e) => { e.preventDefault(); setShowFindIdModal(true); }}>아이디 찾기</a>
@@ -204,12 +209,17 @@ export default function LoginPage() {
                     </label>
                   </div>
 
-                  <button type="submit" className="btn btn-primary">
-                    <span>관리자 로그인</span>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                    </svg>
-                  </button>
+                  <div className="form-actions">
+                    <Link href="/signup" className="btn btn-secondary">
+                      <span>회원가입</span>
+                    </Link>
+                    <button type="submit" className="btn btn-primary">
+                      <span>관리자 로그인</span>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                      </svg>
+                    </button>
+                  </div>
 
                   <div className="form-links">
                     <a href="#" className="link" onClick={(e) => { e.preventDefault(); setShowFindIdModal(true); }}>아이디 찾기</a>
@@ -348,15 +358,44 @@ export default function LoginPage() {
         .feature-benefits {
           display: flex;
           flex-direction: column;
-          gap: 1rem;
+          gap: 1.25rem;
+          margin-top: 2rem;
         }
 
         .benefit-item {
           display: flex;
           align-items: center;
-          gap: 0.75rem;
-          color: var(--gray-700);
+          gap: 1rem;
+          padding: 1rem 1.25rem;
+          background: linear-gradient(135deg, rgba(254, 249, 195, 0.3) 0%, rgba(254, 237, 138, 0.2) 100%);
+          border-left: 3px solid var(--accent-600);
+          border-radius: 0.75rem;
+          transition: all 0.3s ease;
+        }
+
+        .benefit-item:hover {
+          transform: translateX(8px);
+          background: linear-gradient(135deg, rgba(254, 249, 195, 0.5) 0%, rgba(254, 237, 138, 0.3) 100%);
+          box-shadow: 0 4px 12px rgba(202, 138, 4, 0.15);
+        }
+
+        .benefit-item svg {
+          flex-shrink: 0;
+        }
+
+        .benefit-item svg circle {
+          stroke: var(--accent-600);
+        }
+
+        .benefit-item svg path {
+          stroke: var(--accent-700);
+        }
+
+        .benefit-item span {
+          color: var(--gray-800);
           font-size: 0.95rem;
+          font-weight: 500;
+          line-height: 1.5;
         }
 
         .login-form-container {
@@ -466,6 +505,53 @@ export default function LoginPage() {
           cursor: pointer;
           font-size: 0.9rem;
           color: var(--gray-600);
+        }
+
+        .form-actions {
+          display: flex;
+          gap: 1rem;
+          margin-top: 2rem;
+        }
+
+        .form-actions .btn {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.75rem;
+          padding: 1rem 2rem;
+          border-radius: 0.75rem;
+          font-weight: 600;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          border: none;
+          text-decoration: none;
+        }
+
+        .form-actions .btn-secondary {
+          background: white;
+          color: var(--primary-700);
+          border: 2px solid var(--primary-200);
+        }
+
+        .form-actions .btn-secondary:hover {
+          background: var(--primary-50);
+          border-color: var(--accent-600);
+          color: var(--accent-700);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(202, 138, 4, 0.2);
+        }
+
+        .form-actions .btn-primary {
+          background: var(--gradient-gold);
+          color: white;
+          box-shadow: var(--shadow-gold);
+        }
+
+        .form-actions .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 20px rgba(202, 138, 4, 0.35);
         }
 
         .form-links {
