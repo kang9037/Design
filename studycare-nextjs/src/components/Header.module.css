@@ -70,7 +70,7 @@
     transform: translateX(-50%) scaleX(0);
     width: 60%;
     height: 2px;
-    background: linear-gradient(135deg, var(--accent-600) 0%, var(--accent-700) 100%);
+    background: var(--gradient-gold);
     transition: transform 0.3s ease;
 }
 
@@ -87,13 +87,13 @@
 }
 
 .navCta {
-    background: linear-gradient(135deg, var(--accent-600) 0%, var(--accent-700) 100%);
+    background: var(--gradient-gold);
     color: white !important;
     padding: 0.875rem 2rem !important;
     border-radius: 12px;
     transition: all 0.4s ease;
     font-weight: 600;
-    box-shadow: 0 4px 12px rgba(202, 138, 4, 0.3);
+    box-shadow: var(--shadow-gold);
 }
 
 .navCta::before {
