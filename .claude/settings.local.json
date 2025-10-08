@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "mcp__github__create_repository"
+      "mcp__github__create_repository",
+      "Bash(npm run dev:*)"
     ],
     "deny": [],
     "ask": []

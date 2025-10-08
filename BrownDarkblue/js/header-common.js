@@ -1,6 +1,6 @@
 // 공통 헤더 로드 함수
 function loadHeader() {
-    fetch('header.html')
+    fetch('components/header.html')
         .then(response => response.text())
         .then(data => {
             document.getElementById('common-header').innerHTML = data;
