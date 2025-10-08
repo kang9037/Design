@@ -40,6 +40,7 @@ export default function Header() {
         </Link>
 
         <nav className={`${styles.nav} ${mobileMenuOpen ? styles.active : ''}`}>
+          <Link href="/" className={styles.navHome}>🏠 홈</Link>
           <Link href="/#features">기능</Link>
           <Link href="/#why-choose">선택 이유</Link>
           <Link href="/#pricing">가격</Link>

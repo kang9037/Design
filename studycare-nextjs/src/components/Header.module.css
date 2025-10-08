@@ -82,6 +82,10 @@
     transform: translateX(-50%) scaleX(1);
 }
 
+.navHome {
+    /* 홈 링크는 일반 nav 스타일 적용 */
+}
+
 .navCta {
     background: linear-gradient(135deg, var(--accent-600) 0%, var(--accent-700) 100%);
     color: white !important;
