@@ -7,38 +7,8 @@
     <link rel="stylesheet" href="css/login-styles.css">
 </head>
 <body>
-    <!-- 헤더 -->
-    <header class="header">
-        <div class="container">
-            <a href="index.html" class="logo">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                    <rect width="36" height="36" rx="10" fill="url(#gradient-logo)"/>
-                    <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    <defs>
-                        <linearGradient id="gradient-logo" x1="0" y1="0" x2="36" y2="36">
-                            <stop offset="0%" stop-color="#ca8a04"/>
-                            <stop offset="100%" stop-color="#854d0e"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <span>스터디케어</span>
-            </a>
-            <nav class="nav">
-                <a href="../index.html" class="nav-home">🏠 홈</a>
-                <a href="index.html#features">기능</a>
-                <a href="index.html#why-choose">선택 이유</a>
-                <a href="index.html#pricing">가격</a>
-                <a href="index.html#reviews">후기</a>
-                <a href="index.html#contact">문의</a>
-                <a href="login.html" class="nav-cta">시작하기</a>
-            </nav>
-            <button class="mobile-menu-btn" aria-label="메뉴">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </header>
+    <!-- 공통 헤더 -->
+    <div id="common-header"></div>
 
     <!-- 로그인 섹션 -->
     <section class="login-section">
@@ -135,7 +105,7 @@
                             <span class="divider">|</span>
                             <a href="#" class="link" onclick="showFindPasswordModal('student'); return false;">비밀번호 찾기</a>
                             <span class="divider">|</span>
-                            <a href="#" class="link">회원가입</a>
+                            <a href="signup.html" class="link">회원가입</a>
                         </div>
                     </form>
 
@@ -231,28 +201,11 @@
         </div>
     </div>
 
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase 클라이언트 -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/header-common.js"></script>
     <script src="js/login-script.js"></script>
-    <script>
-        // 헤더 스크롤 이벤트
-        const header = document.querySelector('.header');
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // 모바일 메뉴 버튼
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const nav = document.querySelector('.nav');
-
-        if (mobileMenuBtn) {
-            mobileMenuBtn.addEventListener('click', function() {
-                nav.classList.toggle('active');
-                this.classList.toggle('active');
-            });
-        }
-    </script>
 </body>
 </html>

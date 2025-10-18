@@ -2372,6 +2372,19 @@
     </style>
 </head>
 <body>
+    <!-- 로그인 인증 체크 -->
+    <script>
+        // 페이지 로드 시 로그인 상태 확인
+        (function() {
+            const userInfo = localStorage.getItem('userInfo');
+            if (!userInfo) {
+                // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+                alert('로그인이 필요한 페이지입니다.');
+                window.location.href = 'login.html';
+            }
+        })();
+    </script>
+
     <div id="common-header"></div>
     <div class="container">
         <!-- Header with Progress -->
@@ -3547,16 +3560,113 @@
             saveFormData(); // 자동 저장
         }
 
-        // 학교 검색 함수
-        function searchSchool(value) {
+        // 학교 검색 함수 (나이스 API 연동)
+        let searchSchoolTimeout = null;
+        async function searchSchool(value) {
             const suggestionsDiv = document.getElementById('schoolSuggestions');
 
-            if (!value) {
+            if (!value || value.trim() === '') {
                 showAllSchools();
                 return;
             }
 
-            // 검색어로 필터링
+            // 디바운싱: 0.3초 후 검색 실행
+            clearTimeout(searchSchoolTimeout);
+
+            // 로딩 표시
+            suggestionsDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: #ca8a04;"><span style="font-size: 1.2em;">🔍</span> 학교 검색 중...</div>';
+            suggestionsDiv.style.display = 'block';
+
+            searchSchoolTimeout = setTimeout(async () => {
+                try {
+                    // 나이스 API 호출
+                    const response = await fetch(`http://localhost:3000/api/school/search?name=${encodeURIComponent(value)}`);
+                    const result = await response.json();
+
+                    if (result.success && result.data && result.data.length > 0) {
+                        displaySchoolResults(result.data);
+                    } else {
+                        // API 결과가 없으면 로컬 데이터베이스에서 검색
+                        searchSchoolFromLocal(value);
+                    }
+                } catch (error) {
+                    console.error('학교 검색 API 에러:', error);
+                    // API 에러 시 로컬 데이터베이스로 폴백
+                    searchSchoolFromLocal(value);
+                }
+            }, 300);
+        }
+
+        // 나이스 API 결과 표시
+        function displaySchoolResults(schools) {
+            const suggestionsDiv = document.getElementById('schoolSuggestions');
+
+            // 시도교육청별로 그룹화
+            const regionGroups = {};
+            const regionCodeMap = {
+                'B10': '서울', 'C10': '부산', 'D10': '대구', 'E10': '인천',
+                'F10': '광주', 'G10': '대전', 'H10': '울산', 'I10': '세종',
+                'J10': '경기', 'K10': '강원', 'M10': '충북', 'N10': '충남',
+                'P10': '전북', 'Q10': '전남', 'R10': '경북', 'S10': '경남', 'T10': '제주'
+            };
+
+            schools.forEach(school => {
+                const regionName = regionCodeMap[school.ATPT_OFCDC_SC_CODE] || school.LCTN_SC_NM || '기타';
+                if (!regionGroups[regionName]) {
+                    regionGroups[regionName] = [];
+                }
+                regionGroups[regionName].push(school);
+            });
+
+            let html = '<div class="department-chips" style="padding: 15px;">';
+
+            // 지역별로 표시
+            for (const [region, schoolList] of Object.entries(regionGroups)) {
+                html += `<div class="department-category" style="margin-bottom: 15px;">`;
+                html += `<div class="department-category-title">${region}</div>`;
+                html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
+
+                schoolList.forEach(school => {
+                    const schoolName = school.SCHUL_NM;
+                    const schoolType = school.SCHUL_KND_SC_NM || '';
+                    const displayText = `${schoolName} ${schoolType ? `(${schoolType})` : ''}`;
+
+                    html += `<div class="department-chip" onclick="selectSchoolFromAPI('${schoolName.replace(/'/g, "\\'")}', '${school.ATPT_OFCDC_SC_CODE}', '${school.SD_SCHUL_CODE}')" title="${school.ORG_RDNMA || ''}">${displayText}</div>`;
+                });
+
+                html += '</div></div>';
+            }
+
+            html += `<div style="padding: 10px; text-align: center; color: #666; font-size: 0.9em; border-top: 1px solid #e5e7eb; margin-top: 10px;">
+                        총 ${schools.length}개 학교 | 원하는 학교가 없으면 직접 입력하세요
+                     </div>`;
+            html += '</div>';
+
+            suggestionsDiv.innerHTML = html;
+            suggestionsDiv.style.display = 'block';
+        }
+
+        // API에서 선택한 학교 정보 저장
+        function selectSchoolFromAPI(schoolName, regionCode, schoolCode) {
+            const schoolInput = document.getElementById('schoolName');
+            const schoolInfo = document.getElementById('schoolInfo');
+
+            schoolInput.value = schoolName;
+
+            // 학교 정보 표시
+            schoolInfo.innerHTML = `<span style="color: #16a34a;">✓</span> 선택됨 (코드: ${schoolCode})`;
+
+            // 학교 코드 정보 저장 (숨김 필드에)
+            schoolInput.setAttribute('data-region-code', regionCode);
+            schoolInput.setAttribute('data-school-code', schoolCode);
+
+            document.getElementById('schoolSuggestions').style.display = 'none';
+            saveFormData();
+        }
+
+        // 로컬 데이터베이스에서 검색 (폴백용)
+        function searchSchoolFromLocal(value) {
+            const suggestionsDiv = document.getElementById('schoolSuggestions');
             const searchTerm = value.toLowerCase();
             const filtered = schoolDatabase.filter(school =>
                 school.name.toLowerCase().includes(searchTerm)
@@ -3573,6 +3683,7 @@
                 });
 
                 let html = '<div class="department-chips" style="padding: 15px;">';
+                html += '<div style="padding: 10px; background: #fef3c7; border-radius: 8px; margin-bottom: 15px; font-size: 0.85em; color: #92400e;">⚠️ API 연결 실패 - 로컬 데이터베이스 사용 중</div>';
 
                 // 지역별로 표시
                 for (const [region, schools] of Object.entries(regionGroups)) {

@@ -1,1 +1,42 @@
 .vercel
+
+# ======================================
+# 🔒 보안: API 키 및 민감한 정보
+# ⚠️ 절대 GitHub에 업로드하지 마세요!
+# ======================================
+
+# 환경 변수 파일 (API 키 보안)
+.env
+.env.*
+.env.local
+.env.*.local
+.env.production
+.env.development
+
+# API 키 관리 폴더 (매우 중요!)
+**/config/secrets/
+**/config/secrets/**
+**/secrets/
+**/secrets/**
+config/secrets/
+secrets/
+
+# API 키 JSON 파일
+api-keys.json
+**/api-keys.json
+**/*api-keys*.json
+
+# 백업 파일
+*.backup
+*.bak
+.env.backup
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/

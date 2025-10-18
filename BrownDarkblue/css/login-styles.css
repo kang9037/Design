@@ -478,6 +478,8 @@ body {
     box-shadow: var(--shadow-2xl);
     overflow: hidden;
     animation: fadeInUp 0.8s ease 0.4s both;
+    padding: 2.5rem;
+    min-width: 600px;
 }
 
 .user-type-tabs {
@@ -565,7 +567,7 @@ body {
 /* 로그인 폼 */
 .login-form {
     display: none;
-    padding: 3rem;
+    padding: 2.5rem 1.5rem;
 }
 
 .login-form.active {
@@ -848,6 +850,10 @@ body {
     .feature-item:hover {
         transform: translateY(-4px);
     }
+
+    .login-form-container {
+        min-width: auto;
+    }
 }
 
 @media (max-width: 768px) {
@@ -863,8 +869,12 @@ body {
         font-size: 1rem;
     }
 
+    .login-form-container {
+        padding: 1.5rem;
+    }
+
     .login-form {
-        padding: 2rem;
+        padding: 1.5rem 1rem;
     }
 
     .user-type-tabs {

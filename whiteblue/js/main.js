@@ -547,7 +547,7 @@ const counterObserver = new IntersectionObserver((entries) => {
             counter.classList.add('counted'); // 한 번만 실행되도록 플래그 추가
 
             const target = parseInt(counter.getAttribute('data-target'));
-            const duration = 2500; // 2.5초 동안 애니메이션
+            const duration = 1500; // 1.5초 동안 빠르게 애니메이션
             const start = 0;
             const startTime = performance.now();
 
@@ -571,10 +571,14 @@ const counterObserver = new IntersectionObserver((entries) => {
 
                 // 레이블에 따라 접미사 추가
                 const label = counter.parentElement.querySelector('.stat-label').textContent;
-                if (label.includes('%')) {
+                if (label.includes('만족도')) {
                     counter.textContent = formattedNumber + '%';
+                } else if (label.includes('업무 효율')) {
+                    counter.textContent = formattedNumber + '%↑';
                 } else if (label.includes('시간')) {
                     counter.textContent = formattedNumber + '시간';
+                } else if (label.includes('제휴') || label.includes('학원')) {
+                    counter.textContent = formattedNumber + '+';
                 } else {
                     counter.textContent = formattedNumber + (target >= 1000 ? '+' : '');
                 }
@@ -584,10 +588,14 @@ const counterObserver = new IntersectionObserver((entries) => {
                 } else {
                     // 최종 값 설정
                     const finalFormatted = target.toLocaleString('ko-KR');
-                    if (label.includes('%')) {
+                    if (label.includes('만족도')) {
                         counter.textContent = finalFormatted + '%';
+                    } else if (label.includes('업무 효율')) {
+                        counter.textContent = finalFormatted + '%↑';
                     } else if (label.includes('시간')) {
                         counter.textContent = finalFormatted + '시간';
+                    } else if (label.includes('제휴') || label.includes('학원')) {
+                        counter.textContent = finalFormatted + '+';
                     } else {
                         counter.textContent = finalFormatted + (target >= 1000 ? '+' : '');
                     }
@@ -701,212 +709,8 @@ if (reviewsGrid && window.innerWidth > 768) {
     });
 }
 
-// Why Card 모달 데이터
-const whyCardData = {
-    1: {
-        title: '검증된 시스템',
-        subtitle: '150개 이상의 스터디케어에서 신뢰하는 플랫폼',
-        text: '스터디케어는 2020년부터 전국 150개 이상의 스터디케어에서 사용되고 있는 검증된 스터디케어 관리 시스템입니다. 단순히 시스템을 제공하는 것을 넘어, 실제 학원 현장의 목소리를 들으며 지속적으로 발전해왔습니다. 매년 수천 명의 학생들이 우리 시스템을 통해 효율적으로 학습하고, 학부모님들은 자녀의 학습 현황을 실시간으로 확인하실 수 있습니다. 안정성과 신뢰성이 검증된 시스템으로 자기주도학습의 부담을 덜어드립니다.',
-        features: [
-            { icon: '📊', title: '150+ 학원', desc: '전국 150개 이상 학원 사용' },
-            { icon: '👥', title: '수천 명 사용', desc: '매년 수천 명의 학생 이용' },
-            { icon: '⭐', title: '높은 만족도', desc: '평균 4.8/5.0 사용자 평가' },
-            { icon: '🔒', title: '안정성 보장', desc: '99.9% 시스템 안정성' }
-        ]
-    },
-    2: {
-        title: '통합 관리',
-        subtitle: '15가지 기능을 하나의 시스템으로',
-        text: '출결 관리, 성적 분석, 자습실 예약, 학부모 상담, 생활기록부 관리까지 자기주도학습에 필요한 모든 기능이 하나의 플랫폼에 통합되어 있습니다. 더 이상 여러 개의 시스템을 오가며 데이터를 확인할 필요가 없습니다. 모든 정보가 하나의 대시보드에서 실시간으로 동기화되어 업무 효율이 크게 향상됩니다. 선생님들은 학생 지도에만 집중하실 수 있습니다.',
-        features: [
-            { icon: '📝', title: '출결 관리', desc: '실시간 출석 체크 및 통계' },
-            { icon: '📈', title: '성적 분석', desc: '과목별 상세 분석 리포트' },
-            { icon: '🎯', title: '학습 관리', desc: '개인별 맞춤 학습 플랜' },
-            { icon: '💬', title: '상담 시스템', desc: '학부모 소통 플랫폼' }
-        ]
-    },
-    3: {
-        title: '시간 절약',
-        subtitle: '하루 평균 2시간 이상 업무 시간 절감',
-        text: '반복적이고 시간 소모적인 행정 업무를 자동화하여 하루 평균 2시간 이상의 업무 시간을 절약할 수 있습니다. 출결 확인, 성적 입력, 학부모 알림 발송 등이 자동으로 처리되며, 선생님들은 학생 지도와 수업 준비에 더 많은 시간을 할애할 수 있습니다. 효율적인 시스템으로 업무 부담을 줄이고, 교육의 질을 높이세요.',
-        features: [
-            { icon: '⚡', title: '자동화', desc: '반복 업무 자동 처리' },
-            { icon: '⏰', title: '2시간 절약', desc: '매일 평균 2시간 이상 절약' },
-            { icon: '📱', title: '자동 알림', desc: '학부모 자동 알림 발송' },
-            { icon: '🎨', title: '간편 입력', desc: '직관적인 UI로 빠른 입력' }
-        ]
-    },
-    4: {
-        title: '데이터 분석',
-        subtitle: '과학적 데이터 기반 학습 전략',
-        text: '학생별 성적 추이, 학습 패턴, 취약 과목 등을 상세하게 분석하여 맞춤형 학습 전략을 수립할 수 있습니다. 단순히 점수만 보는 것이 아니라, 시간대별 집중도, 과목별 학습 시간, 모의고사 성적 변화 등을 종합적으로 분석합니다. 데이터 기반의 정확한 진단으로 학생들의 성적 향상을 도와드립니다.',
-        features: [
-            { icon: '📊', title: '성적 추이', desc: '과목별 상세 성적 분석' },
-            { icon: '🎯', title: '취약점 분석', desc: 'AI 기반 취약점 파악' },
-            { icon: '📈', title: '예측 분석', desc: '성적 향상 예측 모델' },
-            { icon: '📑', title: '리포트', desc: '맞춤형 분석 리포트' }
-        ]
-    },
-    5: {
-        title: '실시간 동기화',
-        subtitle: '언제 어디서나 최신 정보 확인',
-        text: '모든 데이터가 클라우드에 실시간으로 동기화되어, PC, 태블릿, 스마트폰 등 어떤 기기에서든 최신 정보를 확인할 수 있습니다. 스터디케어에서 입력한 출결 정보를 학부모님은 즉시 스마트폰으로 확인하실 수 있으며, 선생님들도 이동 중에 학생 정보를 조회할 수 있습니다. 장소와 시간의 제약 없이 효율적으로 학원을 운영하세요.',
-        features: [
-            { icon: '☁️', title: '클라우드', desc: '안전한 클라우드 저장' },
-            { icon: '🔄', title: '자동 동기화', desc: '실시간 데이터 동기화' },
-            { icon: '📱', title: '멀티 디바이스', desc: '모든 기기에서 접속' },
-            { icon: '🌐', title: '24/7 접근', desc: '언제 어디서나 접속' }
-        ]
-    },
-    6: {
-        title: '확장 가능',
-        subtitle: '스터디케어 규모에 맞춘 유연한 시스템',
-        text: '소규모 스터디케어부터 대형 프랜차이즈까지, 학원의 규모와 특성에 맞춰 시스템을 자유롭게 확장하고 커스터마이징할 수 있습니다. 초기에는 기본 기능만 사용하다가, 필요에 따라 고급 기능을 추가할 수 있으며, 학원의 특수한 요구사항에 맞춰 기능을 개발해드릴 수도 있습니다. 함께 성장하는 파트너가 되겠습니다.',
-        features: [
-            { icon: '🏢', title: '맞춤형', desc: '스터디케어 규모별 맞춤 설정' },
-            { icon: '🔧', title: '커스터마이징', desc: '필요한 기능 추가 개발' },
-            { icon: '📈', title: '무제한 확장', desc: '제한 없는 기능 확장' },
-            { icon: '🤝', title: '전담 지원', desc: '성장 단계별 컨설팅' }
-        ]
-    }
-};
+// Why Card 데이터는 현재 사용하지 않으므로 제거됨
 
-// Why Card 클릭 이벤트
-let expandedCard = null;
-let typingTimeout = null;
-
-document.addEventListener('DOMContentLoaded', function() {
-    const whyCards = document.querySelectorAll('.why-card');
-
-    whyCards.forEach((card, index) => {
-        card.addEventListener('click', function(e) {
-            // 이미 확장된 카드를 클릭한 경우 무시
-            if (card.classList.contains('expanded')) return;
-
-            expandWhyCard(card, index + 1);
-        });
-    });
-});
-
-// 카드 확장
-function expandWhyCard(card, cardNumber) {
-    const data = whyCardData[cardNumber];
-    if (!data) return;
-
-    // 기존 확장된 카드가 있다면 닫기
-    if (expandedCard && expandedCard !== card) {
-        collapseWhyCard();
-    }
-
-    expandedCard = card;
-
-    // 그리드에 확장 클래스 추가
-    const whyGrid = card.closest('.why-grid');
-    if (whyGrid) {
-        whyGrid.classList.add('has-expanded');
-    }
-
-    // 모든 애니메이션과 transition 비활성화
-    card.style.animation = 'none';
-    card.style.transition = 'none';
-    card.style.transform = 'none';
-
-    // 카드를 즉시 맨 위로 이동
-    card.style.order = '-999';
-    card.classList.add('expanded');
-
-    // 카드 원래 아이콘 가져오기
-    const originalIcon = card.querySelector('.why-card-icon').innerHTML;
-
-    // 확장된 콘텐츠 생성
-    const expandedContent = `
-        <div class="why-card-content-wrapper">
-            <div class="why-card-left">
-                <div class="icon-large">
-                    ${originalIcon}
-                </div>
-                <h2>${data.title}</h2>
-                <p class="subtitle">${data.subtitle}</p>
-            </div>
-            <div class="why-card-right">
-                <div class="typing-text" id="typingText-${cardNumber}"></div>
-            </div>
-        </div>
-        <button class="why-card-close" onclick="collapseWhyCard()">&times;</button>
-    `;
-
-    card.insertAdjacentHTML('beforeend', expandedContent);
-
-    // 타이핑 애니메이션 시작
-    setTimeout(() => {
-        typeText(data.text, `typingText-${cardNumber}`);
-    }, 200);
-
-    // ESC 키로 닫기
-    document.addEventListener('keydown', handleEscKey);
-}
-
-// 카드 축소
-function collapseWhyCard() {
-    if (!expandedCard) return;
-
-    // 타이핑 애니메이션 중단
-    if (typingTimeout) {
-        clearTimeout(typingTimeout);
-        typingTimeout = null;
-    }
-
-    // 그리드에서 확장 클래스 제거
-    const whyGrid = expandedCard.closest('.why-grid');
-    if (whyGrid) {
-        whyGrid.classList.remove('has-expanded');
-    }
-
-    // 확장된 콘텐츠 제거
-    const contentWrapper = expandedCard.querySelector('.why-card-content-wrapper');
-    const closeBtn = expandedCard.querySelector('.why-card-close');
-    if (contentWrapper) contentWrapper.remove();
-    if (closeBtn) closeBtn.remove();
-
-    // 카드 원래대로
-    expandedCard.classList.remove('expanded');
-    expandedCard.style.order = '';
-    expandedCard.style.animation = '';
-    expandedCard.style.transition = '';
-    expandedCard.style.transform = '';
-    expandedCard = null;
-
-    // 이벤트 리스너 제거
-    document.removeEventListener('keydown', handleEscKey);
-}
-
-// ESC 키 핸들러
-function handleEscKey(e) {
-    if (e.key === 'Escape') {
-        collapseWhyCard();
-    }
-}
-
-// 타이핑 애니메이션
-function typeText(text, elementId, speed = 30) {
-    const element = document.getElementById(elementId);
-    if (!element) return;
-
-    let index = 0;
-    element.textContent = '';
-
-    function type() {
-        if (index < text.length && element.isConnected) {
-            element.textContent += text.charAt(index);
-            index++;
-            typingTimeout = setTimeout(type, speed);
-        } else if (element.isConnected) {
-            // 타이핑 완료
-            element.parentElement.classList.add('typing-complete');
-        }
-    }
-
-    type();
-}
+// Why Card 관련 코드는 현재 사용하지 않으므로 제거됨
 
 console.log('🎉 스터디케어 관리 시스템 랜딩페이지가 로드되었습니다.');

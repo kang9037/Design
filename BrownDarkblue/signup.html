@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 - 스터디케어</title>
+    <link rel="stylesheet" href="css/login-styles.css">
+    <style>
+        /* 진행 단계 표시 - 개선된 디자인 */
+        .signup-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 0;
+            position: relative;
+        }
+
+        .signup-steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, #e2e8f0 0%, #e2e8f0 100%);
+            z-index: 0;
+            transition: all 0.3s ease;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 3px solid #e2e8f0;
+            color: #94a3b8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            margin-bottom: 0.75rem;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            border-color: #ca8a04;
+            color: white;
+            transform: scale(1.1);
+            box-shadow: 0 4px 20px rgba(202, 138, 4, 0.4);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .step.completed .step-number {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-color: #10b981;
+            color: white;
+            transform: scale(1);
+            box-shadow: 0 2px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .step.completed .step-number::after {
+            content: '✓';
+            position: absolute;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .step-label {
+            font-size: 0.875rem;
+            color: #94a3b8;
+            text-align: center;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            letter-spacing: -0.01em;
+        }
+
+        .step.active .step-label {
+            color: #ca8a04;
+            font-weight: 700;
+            transform: translateY(-2px);
+        }
+
+        .step.completed .step-label {
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(202, 138, 4, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(202, 138, 4, 0.6);
+            }
+        }
+
+        /* 폼 스텝 애니메이션 */
+        .form-step {
+            display: none;
+            animation: fadeInUp 0.5s ease-out;
+        }
+
+        .form-step.active {
+            display: block;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 폼 헤더 스타일 개선 */
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .form-header h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #ca8a04, #854d0e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .form-header p {
+            color: #64748b;
+            font-size: 0.9375rem;
+        }
+
+        /* 폼 그룹 간격 조정 */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* 약관 박스 개선 */
+        .terms-section {
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+            border: 2px solid #fde68a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-all-agree {
+            background: white;
+            border: 2px solid #ca8a04;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .terms-all-agree label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.0625rem;
+            color: #1e293b;
+        }
+
+        .terms-all-agree input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .terms-box {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            max-height: 150px;
+            overflow-y: auto;
+            font-size: 0.875rem;
+            color: #475569;
+            line-height: 1.6;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            transition: border-color 0.3s ease;
+        }
+
+        .terms-box:hover {
+            border-color: #cbd5e1;
+        }
+
+        .terms-box h4 {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .terms-box h4::before {
+            content: '📋';
+            margin-right: 0.5rem;
+        }
+
+        .terms-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .terms-item:hover {
+            border-color: #ca8a04;
+            box-shadow: 0 2px 8px rgba(202, 138, 4, 0.1);
+        }
+
+        .terms-item label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .terms-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.75rem;
+            cursor: pointer;
+        }
+
+        .terms-item .required-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .terms-item .optional-badge {
+            display: inline-block;
+            background: #e2e8f0;
+            color: #64748b;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        /* 버튼 그룹 개선 */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-group button {
+            flex: 1;
+            font-size: 1rem;
+            font-weight: 600;
+            padding: 1rem;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-group .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-group .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 학생 필드 애니메이션 */
+        #studentFields {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #studentFields.show {
+            max-height: 1000px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        /* 입력 필드 포커스 개선 */
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ca8a04;
+            box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 768px) {
+            .signup-steps {
+                margin-bottom: 2rem;
+            }
+
+            .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .step.active .step-number {
+                transform: scale(1.05);
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .form-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .terms-all-agree {
+                padding: 1rem;
+            }
+        }
+
+        /* 추가 애니메이션 효과 */
+        .form-group {
+            animation: slideIn 0.4s ease-out backwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.15s; }
+        .form-group:nth-child(3) { animation-delay: 0.2s; }
+        .form-group:nth-child(4) { animation-delay: 0.25s; }
+        .form-group:nth-child(5) { animation-delay: 0.3s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* 사용자 유형 카드 스타일 */
+        .user-type-cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .user-type-card {
+            position: relative;
+            padding: 1.75rem 1.5rem;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .user-type-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(202, 138, 4, 0.05) 0%, rgba(133, 77, 14, 0.08) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .user-type-card:hover {
+            border-color: #ca8a04;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 28px -8px rgba(202, 138, 4, 0.3);
+        }
+
+        .user-type-card:hover::before {
+            opacity: 1;
+        }
+
+        .user-type-card.selected {
+            border-color: #ca8a04;
+            border-width: 3px;
+            background: linear-gradient(135deg, rgba(202, 138, 4, 0.08) 0%, rgba(133, 77, 14, 0.12) 100%);
+            box-shadow: 0 8px 24px -6px rgba(202, 138, 4, 0.4);
+        }
+
+        .user-type-card.selected::before {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-card:hover .card-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+        }
+
+        .user-type-card.selected .card-icon {
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            box-shadow: 0 4px 16px rgba(202, 138, 4, 0.4);
+        }
+
+        .card-icon svg {
+            stroke: #a16207;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-card.selected .card-icon svg {
+            stroke: white;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-content h4 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-card.selected .card-content h4 {
+            color: #854d0e;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            color: #64748b;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+        }
+
+        .user-type-card.selected .card-content p {
+            color: #78716c;
+        }
+
+        .card-check {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+        }
+
+        .user-type-card.selected .card-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .user-type-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 개선된 선택 뱃지 */
+        .optional-badge-new {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            color: #0369a1;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            padding: 0.25rem 0.625rem;
+            border-radius: 6px;
+            border: 1px solid #7dd3fc;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            box-shadow: 0 1px 3px rgba(3, 105, 161, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .optional-badge-new:hover {
+            background: linear-gradient(135deg, #bae6fd 0%, #7dd3fc 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(3, 105, 161, 0.2);
+        }
+
+        /* 학년/반 선택 섹션 */
+        .grade-class-section {
+            background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+            border: 2px solid #fde68a;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grade-class-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .grade-select-wrapper,
+        .class-input-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #78716c;
+            margin-bottom: 0.625rem;
+        }
+
+        .input-label svg {
+            stroke: #a16207;
+        }
+
+        .enhanced-select,
+        .enhanced-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: white;
+            border: 2px solid #e7e5e4;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            color: #1e293b;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .enhanced-select:focus,
+        .enhanced-input:focus {
+            outline: none;
+            border-color: #ca8a04;
+            background: #fffbeb;
+            box-shadow: 0 0 0 3px rgba(202, 138, 4, 0.1);
+            transform: translateY(-1px);
+        }
+
+        .enhanced-select:hover,
+        .enhanced-input:hover {
+            border-color: #d6d3d1;
+        }
+
+        /* select 화살표 커스터마이징 */
+        .enhanced-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%23a16207' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            padding-right: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .grade-class-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                    <rect width="36" height="36" rx="10" fill="url(#gradient-logo)"/>
+                    <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="gradient-logo" x1="0" y1="0" x2="36" y2="36">
+                            <stop offset="0%" stop-color="#ca8a04"/>
+                            <stop offset="100%" stop-color="#854d0e"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <span>스터디케어</span>
+            </a>
+            <nav class="nav">
+                <a href="login.html">로그인</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 회원가입 섹션 -->
+    <section class="login-section">
+        <div class="container">
+            <div class="login-wrapper">
+                <div class="login-info">
+                    <div class="login-badge">JOIN US</div>
+                    <h1 class="login-title">
+                        새로운 시작,<br><br>
+                        <span class="gradient-text">스터디케어</span>와<br>
+                        함께하세요
+                    </h1>
+                    <div class="login-features">
+                        <div class="feature-benefits">
+                            <div class="benefit-item">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="8" stroke="#475569" stroke-width="2"/>
+                                    <path d="M6 10L9 13L14 8" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>간편한 3단계 회원가입</span>
+                            </div>
+                            <div class="benefit-item">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="8" stroke="#475569" stroke-width="2"/>
+                                    <path d="M6 10L9 13L14 8" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>안전한 개인정보 보호</span>
+                            </div>
+                            <div class="benefit-item">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="8" stroke="#475569" stroke-width="2"/>
+                                    <path d="M6 10L9 13L14 8" stroke="#475569" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                <span>즉시 사용 가능한 모든 기능</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="login-form-container">
+                    <!-- 진행 단계 표시 -->
+                    <div class="signup-steps">
+                        <div class="step active" data-step="1">
+                            <div class="step-number">1</div>
+                            <div class="step-label">약관 동의</div>
+                        </div>
+                        <div class="step" data-step="2">
+                            <div class="step-number">2</div>
+                            <div class="step-label">기본 정보</div>
+                        </div>
+                        <div class="step" data-step="3">
+                            <div class="step-number">3</div>
+                            <div class="step-label">추가 정보</div>
+                        </div>
+                    </div>
+
+                    <form id="signupForm">
+                        <!-- Step 1: 약관 동의 -->
+                        <div class="form-step active" data-step="1">
+                            <div class="form-header">
+                                <h2>이용약관 동의</h2>
+                                <p>스터디케어 이용을 위한 약관에 동의해주세요</p>
+                            </div>
+
+                            <!-- 전체 동의 -->
+                            <div class="terms-all-agree">
+                                <label>
+                                    <input type="checkbox" id="agreeAll">
+                                    <span>🎯 전체 동의하기</span>
+                                </label>
+                            </div>
+
+                            <!-- 이용약관 -->
+                            <div class="terms-box">
+                                <h4>이용약관</h4>
+                                <p>제1조 (목적)<br>
+                                이 약관은 스터디케어(이하 "회사")가 제공하는 모든 서비스의 이용 조건과 절차, 회사와 회원 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.</p>
+                                <p>제2조 (용어의 정의)<br>
+                                1. "서비스"란 회사가 제공하는 학습 관리 및 진로 설계 서비스를 의미합니다.<br>
+                                2. "회원"이란 회사와 서비스 이용계약을 체결한 자를 말합니다.</p>
+                                <p>제3조 (서비스의 제공 및 변경)<br>
+                                회사는 다음과 같은 서비스를 제공합니다:<br>
+                                - 학습 진도 관리 및 분석<br>
+                                - AI 기반 진로 추천<br>
+                                - 학습 자료 제공</p>
+                            </div>
+
+                            <div class="terms-item">
+                                <label>
+                                    <input type="checkbox" class="terms-check" id="agreeTerms" required>
+                                    <span>이용약관 동의</span>
+                                    <span class="required-badge">필수</span>
+                                </label>
+                            </div>
+
+                            <!-- 개인정보 처리방침 -->
+                            <div class="terms-box">
+                                <h4>개인정보 처리방침</h4>
+                                <p>제1조 (개인정보의 수집 목적)<br>
+                                회사는 다음의 목적을 위하여 개인정보를 수집하고 있습니다:<br>
+                                - 회원 가입 및 관리<br>
+                                - 서비스 제공 및 개선<br>
+                                - 학습 데이터 분석 및 통계</p>
+                                <p>제2조 (수집하는 개인정보 항목)<br>
+                                회사는 회원가입 시 다음 정보를 수집합니다:<br>
+                                - 필수: 이름, 아이디, 비밀번호<br>
+                                - 선택: 전화번호, 학교정보</p>
+                                <p>제3조 (개인정보의 보유 및 이용기간)<br>
+                                회원 탈퇴 시까지 보유하며, 관계 법령에 따라 일정 기간 보관합니다.</p>
+                            </div>
+
+                            <div class="terms-item">
+                                <label>
+                                    <input type="checkbox" class="terms-check" id="agreePrivacy" required>
+                                    <span>개인정보 처리방침 동의</span>
+                                    <span class="required-badge">필수</span>
+                                </label>
+                            </div>
+
+                            <!-- 마케팅 정보 수신 동의 -->
+                            <div class="terms-item">
+                                <label>
+                                    <input type="checkbox" class="terms-check" id="agreeMarketing">
+                                    <span>마케팅 정보 수신 동의 (SMS, 알림)</span>
+                                    <span class="optional-badge">선택</span>
+                                </label>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                                <span>다음 단계로 →</span>
+                            </button>
+                        </div>
+
+                        <!-- Step 2: 기본 정보 -->
+                        <div class="form-step" data-step="2">
+                            <div class="form-header">
+                                <h2>기본 정보 입력</h2>
+                                <p>회원가입을 위한 기본 정보를 입력해주세요</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; font-size: 1rem; font-weight: 700; color: #1e293b;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 0.75rem; stroke: #ca8a04;">
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="9" cy="7" r="4" stroke-width="2"/>
+                                        <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    사용자 유형을 선택해주세요
+                                </label>
+
+                                <!-- 숨겨진 select (실제 제출용) -->
+                                <select id="userType" required style="display: none;">
+                                    <option value="">선택하세요</option>
+                                    <option value="student">학생</option>
+                                    <option value="parent">학부모</option>
+                                </select>
+
+                                <!-- 시각적 버튼 그룹 -->
+                                <div class="user-type-cards">
+                                    <div class="user-type-card" data-value="student">
+                                        <div class="card-icon">
+                                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M6 12v5c3 3 9 3 12 0v-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4>학생</h4>
+                                            <p>학습 관리와 진로 설계를 위한</p>
+                                        </div>
+                                        <div class="card-check">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white">
+                                                <polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="user-type-card" data-value="parent">
+                                        <div class="card-icon">
+                                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <circle cx="9" cy="7" r="4" stroke-width="2"/>
+                                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                        <div class="card-content">
+                                            <h4>학부모</h4>
+                                            <p>자녀의 학습을 관리하기 위한</p>
+                                        </div>
+                                        <div class="card-check">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white">
+                                                <polyline points="20 6 9 17 4 12" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fullName">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <circle cx="12" cy="7" r="4" stroke-width="2"/>
+                                    </svg>
+                                    이름
+                                </label>
+                                <input type="text" id="fullName" placeholder="홍길동" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="22,6 12,13 2,6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    아이디
+                                </label>
+                                <input type="text" id="email" placeholder="아이디를 입력하세요 (4자 이상)" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    비밀번호
+                                </label>
+                                <input type="password" id="password" placeholder="최소 4자 이상 입력하세요" required>
+                                <small style="color: #64748b; font-size: 0.875rem; display: block; margin-top: 0.5rem;">
+                                    영문, 숫자 포함 4자 이상 입력하세요
+                                </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="passwordConfirm">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle; margin-right: 0.5rem;">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <polyline points="22 4 12 14.01 9 11.01" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    비밀번호 확인
+                                </label>
+                                <input type="password" id="passwordConfirm" placeholder="비밀번호를 다시 입력하세요" required>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                                    <span>← 이전 단계</span>
+                                </button>
+                                <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                                    <span>다음 단계로 →</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: 추가 정보 -->
+                        <div class="form-step" data-step="3">
+                            <div class="form-header">
+                                <h2>추가 정보 입력</h2>
+                                <p>더 나은 서비스 제공을 위한 정보를 입력해주세요</p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone" style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle;">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>전화번호</span>
+                                    <span class="optional-badge-new">선택</span>
+                                </label>
+                                <input type="tel" id="phone" placeholder="010-1234-5678">
+                            </div>
+
+                            <div id="studentFields">
+                                <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border: 2px solid #bae6fd; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
+                                    <h3 style="font-size: 1.125rem; font-weight: 700; color: #0369a1; margin-bottom: 0.5rem; display: flex; align-items: center;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="margin-right: 0.75rem;">
+                                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        학생 전용 정보
+                                    </h3>
+                                    <p style="color: #075985; font-size: 0.875rem;">학교 정보를 입력하면 맞춤형 학습 서비스를 제공받을 수 있습니다</p>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="schoolName" style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="display: inline-block; vertical-align: middle;">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <polyline points="9 22 9 12 15 12 15 22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>학교명</span>
+                                    </label>
+                                    <input type="text" id="schoolName" placeholder="예: 부산중앙고등학교">
+                                </div>
+
+                                <!-- 학년/반 선택 카드 -->
+                                <div class="grade-class-section">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; font-weight: 600; color: #475569;">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke: #ca8a04;">
+                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <line x1="16" y1="2" x2="16" y2="6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <line x1="8" y1="2" x2="8" y2="6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <line x1="3" y1="10" x2="21" y2="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                        <span>학년 및 반</span>
+                                    </label>
+
+                                    <div class="grade-class-grid">
+                                        <div class="grade-select-wrapper">
+                                            <label for="grade" class="input-label">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                학년
+                                            </label>
+                                            <select id="grade" class="enhanced-select">
+                                                <option value="">선택</option>
+                                                <option value="1">1학년</option>
+                                                <option value="2">2학년</option>
+                                                <option value="3">3학년</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="class-input-wrapper">
+                                            <label for="classNumber" class="input-label">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <line x1="3" y1="9" x2="21" y2="9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                    <line x1="9" y1="21" x2="9" y2="9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                                반
+                                            </label>
+                                            <input type="number" id="classNumber" class="enhanced-input" placeholder="예: 3" min="1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                                    <span>← 이전 단계</span>
+                                </button>
+                                <button type="submit" class="btn btn-primary" style="background: linear-gradient(135deg, #10b981, #059669); position: relative; overflow: hidden;">
+                                    <span style="position: relative; z-index: 1;">✓ 회원가입 완료</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-links" style="margin-top: 1.5rem;">
+                        <span>이미 계정이 있으신가요?</span>
+                        <a href="login.html" class="link" style="margin-left: 0.5rem;">로그인</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Supabase 클라이언트 -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/signup-script.js"></script>
+</body>
+</html>

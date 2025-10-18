@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디케어 - 마이페이지</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 50%, #e7e5e4 100%);
+            min-height: 100vh;
+            padding: 130px 0 60px 0;
+            position: relative;
+            margin: 0;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(202, 138, 4, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(133, 77, 14, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(71, 85, 105, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5em;
+            color: #854d0e;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 1.1em;
+            color: #6b7280;
+        }
+
+        .profile-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            box-shadow: 0 4px 15px rgba(202, 138, 4, 0.3);
+        }
+
+        .profile-info {
+            flex: 1;
+        }
+
+        .profile-name {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .profile-email {
+            font-size: 1.1em;
+            color: #6b7280;
+            margin-bottom: 12px;
+        }
+
+        .profile-badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .info-item {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+
+        .info-label {
+            font-size: 0.9em;
+            color: #6b7280;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .info-value {
+            font-size: 1.2em;
+            color: #1f2937;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #854d0e;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 1em;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 1em;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ca8a04;
+            box-shadow: 0 0 0 4px rgba(202, 138, 4, 0.1);
+        }
+
+        .form-input:disabled {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 14px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(202, 138, 4, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(202, 138, 4, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #854d0e;
+            border: 2px solid #ca8a04;
+        }
+
+        .btn-secondary:hover {
+            background: #fef9f5;
+            border-color: #854d0e;
+        }
+
+        .activity-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            background: #f9fafb;
+            margin-bottom: 15px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s;
+        }
+
+        .activity-item:hover {
+            border-color: #ca8a04;
+            box-shadow: 0 4px 12px rgba(202, 138, 4, 0.1);
+        }
+
+        .activity-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ca8a04 0%, #854d0e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            color: white;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 5px;
+        }
+
+        .activity-date {
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 공통 헤더 -->
+    <div id="common-header"></div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>👤 마이페이지</h1>
+            <p>내 정보를 확인하고 관리하세요</p>
+        </div>
+
+        <!-- 프로필 섹션 -->
+        <div class="profile-section">
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <div class="profile-info">
+                    <div class="profile-name" id="userName">사용자</div>
+                    <div class="profile-email" id="userEmail">user@example.com</div>
+                    <span class="profile-badge" id="userType">학생</span>
+                </div>
+            </div>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <div class="info-label">가입일</div>
+                    <div class="info-value" id="joinDate">2024.01.01</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">마지막 로그인</div>
+                    <div class="info-value" id="lastLogin">2024.01.15</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">생성된 로드맵</div>
+                    <div class="info-value" id="roadmapCount">5개</div>
+                </div>
+                <div class="info-item">
+                    <div class="info-label">계정 상태</div>
+                    <div class="info-value" style="color: #10b981;">✓ 활성</div>
+                </div>
+            </div>
+
+            <h3 class="section-title">개인정보 수정</h3>
+            <form id="profileForm">
+                <div class="form-group">
+                    <label class="form-label">이메일</label>
+                    <input type="email" class="form-input" id="emailInput" disabled>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">이름</label>
+                    <input type="text" class="form-input" id="nameInput">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">전화번호</label>
+                    <input type="tel" class="form-input" id="phoneInput" placeholder="010-0000-0000">
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary" onclick="window.location.href='roadmap.html'">취소</button>
+                    <button type="submit" class="btn btn-primary">저장하기</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 최근 활동 -->
+        <div class="activity-section">
+            <h3 class="section-title">최근 활동</h3>
+            <div class="activity-item">
+                <div class="activity-icon">🎯</div>
+                <div class="activity-content">
+                    <div class="activity-title">로드맵 생성</div>
+                    <div class="activity-date">2024년 1월 15일</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">📝</div>
+                <div class="activity-content">
+                    <div class="activity-title">프로필 수정</div>
+                    <div class="activity-date">2024년 1월 10일</div>
+                </div>
+            </div>
+            <div class="activity-item">
+                <div class="activity-icon">🔐</div>
+                <div class="activity-content">
+                    <div class="activity-title">로그인</div>
+                    <div class="activity-date">2024년 1월 15일</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script src="js/supabase-client.js"></script>
+    <script src="js/header-common.js"></script>
+    <script>
+        // 페이지 로드 시 사용자 정보 표시
+        document.addEventListener('DOMContentLoaded', async function() {
+            // localStorage에서 사용자 정보 가져오기
+            const userInfoStr = localStorage.getItem('userInfo');
+
+            if (!userInfoStr) {
+                // 로그인하지 않은 경우 로그인 페이지로 리다이렉트
+                alert('로그인이 필요합니다.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const userInfo = JSON.parse(userInfoStr);
+
+            // 사용자 정보 표시
+            document.getElementById('userName').textContent = userInfo.name || '사용자';
+            document.getElementById('userEmail').textContent = userInfo.email || 'user@example.com';
+            document.getElementById('userType').textContent = userInfo.type === 'admin' ? '관리자' : '학생';
+
+            // 입력 필드에 정보 설정
+            document.getElementById('emailInput').value = userInfo.email || '';
+            document.getElementById('nameInput').value = userInfo.name || '';
+
+            // Supabase에서 추가 정보 가져오기
+            if (window.authManager) {
+                try {
+                    const { data: { user } } = await window.authManager.getUser();
+                    if (user) {
+                        // 가입일 표시
+                        const joinDate = new Date(user.created_at);
+                        document.getElementById('joinDate').textContent =
+                            `${joinDate.getFullYear()}.${String(joinDate.getMonth() + 1).padStart(2, '0')}.${String(joinDate.getDate()).padStart(2, '0')}`;
+
+                        // 마지막 로그인 표시
+                        const lastLogin = new Date(user.last_sign_in_at || user.created_at);
+                        document.getElementById('lastLogin').textContent =
+                            `${lastLogin.getFullYear()}.${String(lastLogin.getMonth() + 1).padStart(2, '0')}.${String(lastLogin.getDate()).padStart(2, '0')}`;
+                    }
+                } catch (error) {
+                    console.error('사용자 정보 로드 오류:', error);
+                }
+            }
+        });
+
+        // 프로필 수정 폼 제출
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('nameInput').value;
+            const phone = document.getElementById('phoneInput').value;
+
+            try {
+                // localStorage 업데이트
+                const userInfoStr = localStorage.getItem('userInfo');
+                const userInfo = JSON.parse(userInfoStr);
+                userInfo.name = name;
+                userInfo.phone = phone;
+                localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+                // Supabase 프로필 업데이트 (선택사항)
+                if (window.authManager) {
+                    // 여기에 Supabase 프로필 업데이트 로직 추가 가능
+                }
+
+                alert('프로필이 성공적으로 업데이트되었습니다.');
+
+                // 페이지 헤더 새로고침
+                location.reload();
+            } catch (error) {
+                console.error('프로필 업데이트 오류:', error);
+                alert('프로필 업데이트 중 오류가 발생했습니다.');
+            }
+        });
+    </script>
+</body>
+</html>

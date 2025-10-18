@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대시보드 - 입시네비게이션</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/dashboard-styles.css">
+</head>
+<body>
+    <!-- 공통 헤더 -->
+    <div id="common-header"></div>
+
+    <!-- 대시보드 섹션 -->
+    <section class="dashboard-section">
+        <div class="container">
+            <!-- 환영 메시지 -->
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h1 class="welcome-title">
+                        안녕하세요, <span id="userName" class="gradient-text">학생</span>님!
+                    </h1>
+                    <p class="welcome-message">오늘도 목표를 향해 한 걸음 더 나아가세요.</p>
+                </div>
+                <div class="welcome-stats">
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M8 2V6M16 2V6M3.5 9.09H20.5M21 8.5V17C21 20 19.5 22 16 22H8C4.5 22 3 20 3 17V8.5C3 5.5 4.5 3.5 8 3.5H16C19.5 3.5 21 5.5 21 8.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="studyDays">0일</div>
+                            <div class="stat-label">연속 학습</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="totalPoints">0점</div>
+                            <div class="stat-label">포인트</div>
+                        </div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <polyline points="12 6 12 12 16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-value" id="todayStudyTime">0시간</div>
+                            <div class="stat-label">오늘 학습</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 대시보드 그리드 -->
+            <div class="dashboard-grid">
+                <!-- 오늘의 학습 목표 -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M9 11L12 14L22 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M21 12V19C21 20.1046 20.1046 21 19 21H5C3.89543 21 3 20.1046 3 19V5C3 3.89543 3.89543 3 5 3H16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            오늘의 학습 목표
+                        </h2>
+                        <button class="card-action" onclick="addGoal()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <ul class="goal-list" id="goalList">
+                            <li class="goal-item">
+                                <input type="checkbox" id="goal1">
+                                <label for="goal1">수학 문제집 30문제 풀기</label>
+                            </li>
+                            <li class="goal-item">
+                                <input type="checkbox" id="goal2">
+                                <label for="goal2">영어 단어 50개 암기</label>
+                            </li>
+                            <li class="goal-item">
+                                <input type="checkbox" id="goal3">
+                                <label for="goal3">국어 비문학 3지문 분석</label>
+                            </li>
+                        </ul>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 33%"></div>
+                        </div>
+                        <div class="progress-text">1/3 완료</div>
+                    </div>
+                </div>
+
+                <!-- 학습 시간 기록 -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2V12L17 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            학습 시간 기록
+                        </h2>
+                        <button class="card-action" onclick="startTimer()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <polygon points="5 3 19 12 5 21 5 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="timer-display">
+                            <div class="timer-time" id="timerDisplay">00:00:00</div>
+                            <div class="timer-subject" id="currentSubject">학습 시작 버튼을 눌러주세요</div>
+                        </div>
+                        <div class="subject-buttons">
+                            <button class="subject-btn" data-subject="국어">국어</button>
+                            <button class="subject-btn" data-subject="수학">수학</button>
+                            <button class="subject-btn" data-subject="영어">영어</button>
+                            <button class="subject-btn" data-subject="탐구">탐구</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 최근 성적 -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9 20.4477 9.44772 20 10 20H14C14.5523 20 15 20.4477 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            최근 성적
+                        </h2>
+                        <button class="card-action" onclick="addGrade()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="grade-list" id="gradeList">
+                            <div class="grade-item">
+                                <div class="grade-subject">국어</div>
+                                <div class="grade-score">92점</div>
+                                <div class="grade-rank">2등급</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-subject">수학</div>
+                                <div class="grade-score">88점</div>
+                                <div class="grade-rank">2등급</div>
+                            </div>
+                            <div class="grade-item">
+                                <div class="grade-subject">영어</div>
+                                <div class="grade-score">95점</div>
+                                <div class="grade-rank">1등급</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 학습 캘린더 -->
+                <div class="dashboard-card card-full">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            이번 달 학습 현황
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="calendar-grid" id="calendar">
+                            <!-- 캘린더는 JavaScript로 동적 생성 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 스크립트 -->
+    <script src="js/auth-local.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

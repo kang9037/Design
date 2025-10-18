@@ -26,31 +26,98 @@ document.addEventListener('DOMContentLoaded', function() {
     const adminForm = document.getElementById('adminForm');
 
     if (studentForm) {
-        studentForm.addEventListener('submit', function(e) {
+        studentForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const id = document.getElementById('student-id').value;
+            const email = document.getElementById('student-id').value;
             const password = document.getElementById('student-password').value;
+            const rememberMe = document.getElementById('remember-student').checked;
 
-            // 테스트 계정 확인
-            if (id === 'test' && password === '1111') {
-                // 로그인 성공 - 로드맵 페이지로 이동
-                window.location.href = 'roadmap.html';
-            } else {
-                // 로그인 실패
-                alert('아이디 또는 비밀번호가 올바르지 않습니다.');
+            // 로딩 표시
+            const submitBtn = studentForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>로그인 중...</span>';
+
+            try {
+                // Supabase 로그인
+                const result = await window.authManager.signIn(email, password);
+
+                if (result.success) {
+                    // 로그인 성공 - 사용자 정보 저장
+                    const userInfo = {
+                        email: result.user.email,
+                        name: result.user.user_metadata?.name || result.user.email.split('@')[0],
+                        type: 'student'
+                    };
+                    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+                    // 팝업 없이 바로 이동
+                    window.location.href = 'roadmap.html';
+                } else {
+                    // 로그인 실패
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('로그인 오류:', error);
+                alert('로그인 중 오류가 발생했습니다.');
+            } finally {
+                // 버튼 복구
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
             }
         });
     }
 
     if (adminForm) {
-        adminForm.addEventListener('submit', function(e) {
+        adminForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const id = document.getElementById('admin-id').value;
+            const email = document.getElementById('admin-id').value;
             const password = document.getElementById('admin-password').value;
+            const rememberMe = document.getElementById('remember-admin').checked;
 
-            // 여기에 실제 로그인 로직을 구현하세요
-            console.log('관리자 로그인:', { id, password });
-            alert('관리자 로그인 기능은 서버 연동 후 사용 가능합니다.');
+            // 로딩 표시
+            const submitBtn = adminForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span>로그인 중...</span>';
+
+            try {
+                // Supabase 로그인
+                const result = await window.authManager.signIn(email, password);
+
+                if (result.success) {
+                    // user_metadata에서 관리자 권한 체크 (프로필 테이블 없어도 작동)
+                    const user = result.user;
+                    const userType = user.user_metadata?.user_type ||
+                                   user.user_metadata?.original_username === 'admin' ? 'admin' : null;
+
+                    if (userType === 'admin' || email === 'admin' || email.includes('admin@')) {
+                        // 관리자 로그인 성공 - 사용자 정보 저장
+                        const userInfo = {
+                            email: result.user.email,
+                            name: result.user.user_metadata?.name || '관리자',
+                            type: 'admin'
+                        };
+                        localStorage.setItem('userInfo', JSON.stringify(userInfo));
+
+                        // 팝업 없이 바로 이동
+                        window.location.href = 'roadmap.html';
+                    } else {
+                        alert('관리자 권한이 없습니다.');
+                        await window.authManager.signOut();
+                    }
+                } else {
+                    // 로그인 실패
+                    alert(result.message);
+                }
+            } catch (error) {
+                console.error('로그인 오류:', error);
+                alert('로그인 중 오류가 발생했습니다.');
+            } finally {
+                // 버튼 복구
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalText;
+            }
         });
     }
 });
@@ -111,7 +178,7 @@ function findId() {
 }
 
 // 비밀번호 찾기 함수
-function findPassword() {
+async function findPassword() {
     const id = document.getElementById('find-pw-id').value;
     const email = document.getElementById('find-pw-email').value;
 
@@ -120,10 +187,20 @@ function findPassword() {
         return;
     }
 
-    // 여기에 실제 비밀번호 찾기 로직을 구현하세요
-    console.log('비밀번호 찾기:', { userType: currentUserType, id, email });
-    alert(`${email}로 비밀번호 재설정 링크를 전송했습니다.\n(실제 기능은 서버 연동 후 사용 가능합니다.)`);
-    closeModal('findPasswordModal');
+    try {
+        // Supabase 비밀번호 재설정 이메일 전송
+        const result = await window.authManager.resetPassword(email);
+
+        if (result.success) {
+            alert(result.message);
+            closeModal('findPasswordModal');
+        } else {
+            alert(result.message);
+        }
+    } catch (error) {
+        console.error('비밀번호 재설정 오류:', error);
+        alert('비밀번호 재설정 중 오류가 발생했습니다.');
+    }
 }
 
 // 입력 필드 엔터 키 처리

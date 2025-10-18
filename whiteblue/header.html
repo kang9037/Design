@@ -1,32 +1,134 @@
 <!-- 헤더 -->
 <header class="header">
     <div class="container">
+        <!-- 로고 -->
         <a href="index.html" class="logo">
-            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-                <rect width="36" height="36" rx="10" fill="url(#gradient-logo)"/>
-                <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="gradient-logo" x1="0" y1="0" x2="36" y2="36">
-                        <stop offset="0%" stop-color="#3b82f6"/>
-                        <stop offset="100%" stop-color="#2563eb"/>
+                        <stop offset="0%" stop-color="#3b82f6"></stop>
+                        <stop offset="100%" stop-color="#2563eb"></stop>
                     </linearGradient>
                 </defs>
+                <rect width="36" height="36" rx="10" fill="url(#gradient-logo)"></rect>
+                <path d="M18 10L25 14V22L18 26L11 22V14L18 10Z" stroke="white" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
-            <span>스터디케어</span>
+            <span>입시네비게이션</span>
         </a>
-        <nav class="nav">
-            <a href="../index.html" class="nav-home">🏠 홈</a>
-            <a href="index.html#features">기능</a>
-            <a href="index.html#why-choose">선택 이유</a>
-            <a href="index.html#pricing">가격</a>
-            <a href="index.html#reviews">후기</a>
-            <a href="index.html#contact">문의</a>
-            <a href="login.html" class="nav-cta">시작하기</a>
-        </nav>
+
+        <!-- 햄버거 버튼 (모바일) -->
         <button class="mobile-menu-btn" aria-label="메뉴">
             <span></span>
             <span></span>
             <span></span>
         </button>
+
+        <!-- 네비게이션 -->
+        <nav class="nav">
+            <!-- 모바일 메뉴 상단 헤더 -->
+            <div class="mobile-nav-header">
+                <a href="index.html" class="mobile-nav-logo">
+                    <div class="mobile-logo-icon" style="width: 32px; height: 32px; background: linear-gradient(135deg, #3b82f6, #2563eb); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">N</div>
+                    <span>입시네비게이션</span>
+                </a>
+                <!-- 닫기 버튼 (모바일에서만 보임) -->
+                <button class="mobile-close-btn" aria-label="메뉴 닫기">
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+
+            <!-- 기능 드롭다운 -->
+            <div class="nav-item-with-dropdown">
+                <a href="#features" class="nav-link">기능</a>
+                <div class="features-dropdown">
+                    <div class="dropdown-grid">
+                        <a href="self-study-room.html" class="dropdown-item">
+                            <div class="dropdown-icon">📚</div>
+                            <div class="dropdown-content">
+                                <strong>자습관 신청</strong>
+                                <span>주차별 자습실 예약 및 좌석 배정</span>
+                            </div>
+                        </a>
+                        <a href="study-status.html" class="dropdown-item">
+                            <div class="dropdown-icon">📊</div>
+                            <div class="dropdown-content">
+                                <strong>학습현황</strong>
+                                <span>실시간 학습 기록과 진도 관리</span>
+                            </div>
+                        </a>
+                        <a href="study-dotcom.html" class="dropdown-item">
+                            <div class="dropdown-icon">📝</div>
+                            <div class="dropdown-content">
+                                <strong>학습닷컴</strong>
+                                <span>일정 관리와 출결 체크 자동화</span>
+                            </div>
+                        </a>
+                        <a href="attendance-calendar.html" class="dropdown-item">
+                            <div class="dropdown-icon">📅</div>
+                            <div class="dropdown-content">
+                                <strong>출결 캘린더</strong>
+                                <span>학생별 출결 현황 달력 확인</span>
+                            </div>
+                        </a>
+                        <a href="schedule-notification.html" class="dropdown-item">
+                            <div class="dropdown-icon">🔔</div>
+                            <div class="dropdown-content">
+                                <strong>일정 알림</strong>
+                                <span>수업, 시험, 상담 일정 자동 알림</span>
+                            </div>
+                        </a>
+                        <a href="activity-records.html" class="dropdown-item">
+                            <div class="dropdown-icon">📋</div>
+                            <div class="dropdown-content">
+                                <strong>생기부 활동</strong>
+                                <span>생활기록부 활동 체계적 관리</span>
+                            </div>
+                        </a>
+                        <a href="internal-exam-trend.html" class="dropdown-item">
+                            <div class="dropdown-icon">📈</div>
+                            <div class="dropdown-content">
+                                <strong>내신 추이</strong>
+                                <span>교과별 성적 변화 그래프 분석</span>
+                            </div>
+                        </a>
+                        <a href="mock-exam-trend.html" class="dropdown-item">
+                            <div class="dropdown-icon">📉</div>
+                            <div class="dropdown-content">
+                                <strong>모의고사 추이</strong>
+                                <span>과목별 모의고사 성적 추적</span>
+                            </div>
+                        </a>
+                        <a href="omr-analysis.html" class="dropdown-item">
+                            <div class="dropdown-icon">✏️</div>
+                            <div class="dropdown-content">
+                                <strong>OMR 추이</strong>
+                                <span>OMR 분석을 통한 취약점 파악</span>
+                            </div>
+                        </a>
+                        <a href="university-search.html" class="dropdown-item">
+                            <div class="dropdown-icon">🎓</div>
+                            <div class="dropdown-content">
+                                <strong>수시/정시 검색</strong>
+                                <span>지역별, 학과별 대학 정보 검색</span>
+                            </div>
+                        </a>
+                        <a href="grade-analysis.html" class="dropdown-item">
+                            <div class="dropdown-icon">📑</div>
+                            <div class="dropdown-content">
+                                <strong>성적 분석표</strong>
+                                <span>학생별 맞춤 성적 분석 제공</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상담하기 -->
+            <a href="index.html#contact" class="nav-consultation">상담하기</a>
+
+            <!-- 로그인 -->
+            <a href="login.html" class="nav-cta">로그인</a>
+        </nav>
     </div>
 </header>
