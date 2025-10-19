@@ -364,7 +364,7 @@ body {
         box-shadow: -8px 0 32px rgba(0, 0, 0, 0.2);
         overflow-y: auto;
         z-index: 999;
-        padding: 0 1.5rem 2rem;
+        padding: 0 1.5rem 2rem 1.5rem;
         flex-direction: column;
         align-items: stretch;
         gap: 0;
@@ -380,8 +380,8 @@ body {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 1.25rem 1.5rem;
-        margin: 0 -1.5rem 1rem;
+        padding: 0.75rem 1.5rem;
+        margin: 0 -1.5rem 0.75rem;
         border-bottom: 1px solid var(--gray-200);
         background: white;
         position: sticky;
@@ -610,6 +610,7 @@ body {
 
     /* 로그인 버튼 - 모바일 */
     .nav-cta {
+        position: relative;
         display: block;
         width: 100%;
         padding: 1rem 1.25rem;
@@ -623,12 +624,70 @@ body {
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
         text-decoration: none;
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: pointer;
     }
 
     .nav-cta:hover {
         background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
         transform: translateY(-2px);
         box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+    }
+
+    /* 사용자 드롭다운 - 모바일 */
+    .user-dropdown {
+        display: none;
+        position: static;
+        width: 100%;
+        margin-top: 0.5rem;
+        background: white;
+        border-radius: 10px;
+        border: 1px solid var(--gray-200);
+        overflow: hidden;
+    }
+
+    .user-dropdown.show {
+        display: block;
+        animation: dropdownSlideDown 0.3s ease-out;
+    }
+
+    .user-dropdown a {
+        display: block;
+        padding: 1rem 1.25rem;
+        color: var(--gray-700);
+        text-decoration: none;
+        text-align: center;
+        font-size: 0.9375rem;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        border-bottom: 1px solid var(--gray-100);
+    }
+
+    .user-dropdown a:last-child {
+        border-bottom: none;
+    }
+
+    .user-dropdown a:hover {
+        background: var(--primary-50);
+        color: var(--primary-600);
+    }
+
+    .dropdown-divider {
+        height: 1px;
+        background: var(--gray-200);
+        margin: 0;
+    }
+
+    @keyframes dropdownSlideDown {
+        from {
+            opacity: 0;
+            max-height: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            max-height: 200px;
+            transform: translateY(0);
+        }
     }
 
     .section-title {
@@ -1038,8 +1097,70 @@ section {
     }
 }
 
+/* 사이드바 툴팁 스타일 - 아래쪽으로 표시 */
+.sidebar-tooltip {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 15px);
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #18181b 0%, #0f172a 100%);
+    color: white;
+    padding: 0.875rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0s;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5),
+                0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 10000;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+}
+
+/* 툴팁 화살표 - 위쪽 화살표 */
+.sidebar-tooltip::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    transform: translateX(-50%);
+    border: 8px solid transparent;
+    border-bottom-color: #18181b;
+}
+
+/* 호버 시 툴팁 표시 - 즉시 나타남 */
+.sidebar-link:hover .sidebar-tooltip {
+    opacity: 1;
+    visibility: visible;
+    top: calc(100% + 20px);
+    transition-delay: 0s;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* 모바일에서도 툴팁은 아래쪽으로 표시 (변경 없음) */
+    .sidebar-tooltip {
+        left: 50%;
+        top: calc(100% + 15px);
+        transform: translateX(-50%);
+    }
+
+    .sidebar-tooltip::before {
+        left: 50%;
+        bottom: 100%;
+        transform: translateX(-50%);
+        border-bottom-color: #1e40af;
+    }
+
+    .sidebar-link:hover .sidebar-tooltip {
+        top: calc(100% + 20px);
+    }
+
     .container {
         padding: 0 1.5rem;
     }
@@ -1096,7 +1217,7 @@ section {
         background: white !important;
         flex-direction: column !important;
         gap: 0 !important;
-        padding: 5rem 1.5rem 2rem !important;
+        padding: 0 1.5rem 2rem !important;
         box-shadow: -4px 0 24px rgba(0, 0, 0, 0.2) !important;
         transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
         z-index: 10001 !important;
